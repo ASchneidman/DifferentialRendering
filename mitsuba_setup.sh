@@ -1,3 +1,5 @@
+#!/bin/sh
+
 git clone --recursive https://github.com/mitsuba-renderer/mitsuba2
 cp mitsuba.conf mitsuba2
 
@@ -11,5 +13,6 @@ cd build
 export CC=clang-9
 export CXX=clang++-9
 
-cmake -GNinja ..
+cmake -GNinja -DMTS_ENABLE_GUI=ON -DMTS_USE_OPTIX_HEADERS=OFF -DMTS_OPTIX_PATH=[path to optix.h] ..
+
 ninja
