@@ -15,10 +15,10 @@
     to 
     `from pycocotools import mask`
     - `make`
-    - `cd ../..`
 - Install vqa_maskrcnn_benchmark (follow these exact steps!!)
 
 ```
+cd vilbert-multi-task
 git clone https://gitlab.com/vedanuj/vqa-maskrcnn-benchmark.git
 cd vqa-maskrcnn-benchmark
 python setup.py build develop
@@ -32,14 +32,23 @@ pip install pytorch_transformers==1.2.0
 ```
 - Download the pretrained visual feature extractor
 ```
-cd data
+cd vilbert-multi-task/data
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/detectron_model.pth
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/detectron_config.yaml
 ```
+
+- Download pretrained ViLBERT
+
+```
+cd multi-task-vilbert
+wget https://dl.fbaipublicfiles.com/vilbert-multi-task/multi_task_model.bin
+```
+
+
 - Download datasets (you can delete these after getting the file we need: `trainval_label2ans.pkl`, i.e. once the VQA dataset is extracted, you can cancel the untar)
 
 ```
-cd data
+cd multi-task-vilbert/data
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/datasets.tar.gz
 tar xf datasets.tar.gz
 ```
