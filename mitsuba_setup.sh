@@ -13,6 +13,6 @@ cd build
 export CC=clang-9
 export CXX=clang++-9
 
-cmake -GNinja -DMTS_ENABLE_GUI=ON -DMTS_USE_OPTIX_HEADERS=OFF -DMTS_OPTIX_PATH=[path to optix.h] ..
+cmake -GNinja -DMTS_ENABLE_GUI=ON -DMTS_USE_OPTIX_HEADERS=OFF -DMTS_OPTIX_PATH=/home/alex/Downloads/NVIDIA-OptiX-SDK-7.2.0-linux64-x86_64/include ..
 
 ninja

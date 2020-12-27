@@ -2,15 +2,6 @@
 
 # Steps
 
-## Install mitsuba2
-
-1. Follow guide to set up mitsuba2: https://mitsuba2.readthedocs.io/en/latest/src/getting_started/cloning.html
-
-### Tips and Tricks
-
-- Ensure latest nvidia drivers are installed
-- Had to download optix headers manually from https://developer.nvidia.com/designworks/optix/download
-- Look at mitsuba_setup.sh to help out
 
 ## Install ViLBERT
 
@@ -53,7 +44,28 @@ wget https://dl.fbaipublicfiles.com/vilbert-multi-task/datasets.tar.gz
 tar xf datasets.tar.gz
 ```
 
+- To test the installation, you should be able to run the demo.ipynb in this project's root directory
+
 
 ### Tips and Tricks
 
 - When installing cudatoolkit into your conda env, try 10.1. You might get it wrong the first time, when you install apex, you may get an error about how pytorch isn't built with the same cuda bindings that are installed. If you look around in the trace, you should be able to find the version number it needs
+
+## Install mitsuba2 (read tips and tricks first)
+
+1. Make sure you are in the same python env as the one used for installing ViLBERT (probably vilbert-mt)
+2. Follow guide to set up mitsuba2: https://mitsuba2.readthedocs.io/en/latest/src/getting_started/cloning.html
+
+### Tips and Tricks
+
+- Edit CMakeLists.txt
+    - Add the following to line 27
+
+```
+set(PYTHON_LIBRARY /home/$USER/anaconda3/envs/vilbert-mt/lib/libpython3.6m.so)
+set(PYTHON_INCLUDE_DIR /home/$USER/anaconda3/envs/vilbert-mt/include/python3.6m)
+```
+
+- Ensure latest nvidia drivers are installed
+- Had to download optix headers manually from https://developer.nvidia.com/designworks/optix/download
+- Look at mitsuba_setup.sh to help out
