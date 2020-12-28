@@ -166,17 +166,17 @@ class FeatureExtractor:
             feat_list.append(feats[i][keep_boxes])
             bbox = output[0]["proposals"][i][keep_boxes].bbox / im_scales[i]
             # Predict the class label using the scores
-            objects = torch.argmax(scores[keep_boxes][start_index:], dim=1)
-            cls_prob = torch.max(scores[keep_boxes][start_index:], dim=1)
+            #objects = torch.argmax(scores[keep_boxes][start_index:], dim=1)
+            #cls_prob = torch.max(scores[keep_boxes][start_index:], dim=1)
 
             info_list.append(
                 {
-                    "bbox": bbox.cpu().numpy(),
+                    "bbox": bbox,
                     "num_boxes": num_boxes.item(),
-                    "objects": objects.cpu().numpy(),
+                    #"objects": objects.cpu().numpy(),
                     "image_width": im_infos[i]["width"],
                     "image_height": im_infos[i]["height"],
-                    "cls_prob": scores[keep_boxes].cpu().numpy(),
+                    #"cls_prob": scores[keep_boxes].cpu().numpy(),
                 }
             )
 
@@ -323,25 +323,25 @@ def custom_prediction(model, query, task, features, infos, tokenizer):
         num_boxes = num_boxes + 1
         feature = torch.cat([g_feat.view(1,-1), feature], dim=0)
         boxes = infos[i]['bbox']
-        image_location = np.zeros((boxes.shape[0], 5), dtype=np.float32)
+        image_location = torch.zeros((boxes.shape[0], 5)).float().to(boxes.device)
         image_location[:,:4] = boxes
         image_location[:,4] = (image_location[:,3] - image_location[:,1]) * (image_location[:,2] - image_location[:,0]) / (float(image_w) * float(image_h))
         image_location[:,0] = image_location[:,0] / float(image_w)
         image_location[:,1] = image_location[:,1] / float(image_h)
         image_location[:,2] = image_location[:,2] / float(image_w)
         image_location[:,3] = image_location[:,3] / float(image_h)
-        g_location = np.array([0,0,1,1,1])
-        image_location = np.concatenate([np.expand_dims(g_location, axis=0), image_location], axis=0)
+        g_location = torch.tensor([0,0,1,1,1]).to(boxes.device)
+        image_location = torch.cat([torch.unsqueeze(g_location, 0), image_location], axis=0)
         image_mask = [1] * (int(num_boxes))
 
         feature_list.append(feature)
-        image_location_list.append(torch.tensor(image_location))
-        image_mask_list.append(torch.tensor(image_mask))
+        image_location_list.append(image_location)
+        image_mask_list.append(torch.tensor(image_mask).to(boxes.device))
 
-    features = torch.stack(feature_list, dim=0).float().cuda()
-    spatials = torch.stack(image_location_list, dim=0).float().cuda()
-    image_mask = torch.stack(image_mask_list, dim=0).byte().cuda()
+    features = torch.stack(feature_list, dim=0).float()
+    spatials = torch.stack(image_location_list, dim=0).float()
+    image_mask = torch.stack(image_mask_list, dim=0).byte()
     co_attention_mask = torch.zeros((num_image, num_boxes, max_length)).cuda()
 
-    return prediction(text, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask, task)
+    return prediction(model, text, features, spatials, segment_ids, input_mask, image_mask, co_attention_mask, task)
 
