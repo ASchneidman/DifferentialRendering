@@ -7,7 +7,7 @@
 
 - Follow github to install ViLBERT https://github.com/facebookresearch/vilbert-multi-task
 - `cd vilbert-multi-task`
-- Set up `tools/refer`
+- Set up `tools/refer` (optionally, clone from my fork instead: git@github.com:ASchneidman/refer.git)
     - `cd tools/refer`
     - `pip install pycocotools`
     - Edit line 39 of `refer.py` from 
@@ -19,7 +19,7 @@
 
 ```
 cd vilbert-multi-task
-git clone https://gitlab.com/vedanuj/vqa-maskrcnn-benchmark.git
+git clone git@gitlab.com:ASchneidman/vqa-maskrcnn-benchmark.git
 cd vqa-maskrcnn-benchmark
 python setup.py build develop
 ```
