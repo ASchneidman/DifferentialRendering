@@ -31,6 +31,14 @@ python setup.py build develop
 pip uninstall pytorch_transformers
 pip install pytorch_transformers==1.2.0
 ```
+
+- There's likely an issue with tensorboard from pip, install it from conda
+
+```
+pip uninstall tensorboardX
+conda install tensorboardX
+```
+
 - Download the pretrained visual feature extractor
 ```
 cd vilbert-multi-task/data
