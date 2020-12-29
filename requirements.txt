@@ -1,5 +1,4 @@
 pycocotools
-scikit-image
 yacs
 pytorch-transformers==1.2.0
 numpy==1.16.4
@@ -17,3 +16,4 @@ python-prctl
 msgpack
 msgpack-numpy
 opencv-python==4.2.0.34
+tensorboardX
