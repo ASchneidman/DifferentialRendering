@@ -5,6 +5,7 @@
 
 ## Install ViLBERT
 
+- `sudo apt-get install build-essential libcap-dev`
 - Follow github to install ViLBERT https://github.com/facebookresearch/vilbert-multi-task
 - `cd vilbert-multi-task`
 - Set up `tools/refer` (optionally, clone from my fork instead: git@github.com:ASchneidman/refer.git)
