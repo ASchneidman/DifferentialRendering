@@ -53,7 +53,7 @@ wget https://dl.fbaipublicfiles.com/vilbert-multi-task/multi_task_model.bin
 ```
 
 
-- Download datasets (you can delete these after getting the file we need: `trainval_label2ans.pkl`, i.e. once the VQA dataset is extracted, you can cancel the untar)
+- Download datasets (you can delete these after getting the file we need: `trainval_label2ans.pkl` and `trainval_ans2label.pkl`, i.e. once the VQA dataset is extracted, you can cancel the untar)
 
 ```
 cd multi-task-vilbert/data
