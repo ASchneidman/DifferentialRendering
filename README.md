@@ -1,44 +1,46 @@
 # DifferentialRendering
 
+Requirements:
+
+1. Cuda 10.1 and up
+2. Pytorch 1.7 and up
+2. Torchvision 0.8.2 and up
+
 # Steps
 
 ## Install ViLBERT
+```
+conda create -n vilbert-mt python=3.6
+conda activate vilbert-mt
 
-- `sudo apt-get install build-essential libcap-dev`
-- Follow github to install ViLBERT https://github.com/facebookresearch/vilbert-multi-task
-- `pip install -r requirements.txt`
-- `cd vilbert-multi-task`
-- Set up `tools/refer` (optionally, clone from my fork instead: https://github.com/ASchneidman/refer.git)
-    - `cd tools/refer`
-    - Edit line 39 of `refer.py` from 
-    `from external import mask`
-    to 
-    `from pycocotools import mask`
-    - `make`
-- Install vqa_maskrcnn_benchmark (follow these exact steps!!)
+sudo apt-get install build-essential libcap-dev
+
+pip install -r requirements.txt
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+conda install tensorboardX
+
+git clone https://github.com/facebookresearch/vilbert-multi-task.git
+
+cd vilbert-multi-task/tools
+rm -rf refer
+git clone https://github.com/ASchneidman/refer.git
+cd refer
+make
+cd ../../
+```
+
+Install apex from https://github.com/NVIDIA/apex
+
+Install vqa_maskrcnn_benchmark
 
 ```
-cd vilbert-multi-task
 git clone https://gitlab.com/ASchneidman/vqa-maskrcnn-benchmark.git
 cd vqa-maskrcnn-benchmark
 python setup.py build develop
 ```
 
-- Likely the wrong version of transformers got installed, correct it with
+Download the pretrained visual feature extractor
 
-```
-pip uninstall pytorch_transformers
-pip install pytorch_transformers==1.2.0
-```
-
-- There's likely an issue with tensorboard from pip, install it from conda
-
-```
-pip uninstall tensorboardX
-conda install tensorboardX
-```
-
-- Download the pretrained visual feature extractor
 ```
 cd vilbert-multi-task/data
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/detectron_model.pth
@@ -66,7 +68,7 @@ tar xf datasets.tar.gz
 
 ### Tips and Tricks
 
-- When installing cudatoolkit into your conda env, try 10.1. You might get it wrong the first time, when you install apex, you may get an error about how pytorch isn't built with the same cuda bindings that are installed. If you look around in the trace, you should be able to find the version number it needs
+- When installing cudatoolkit into your conda env, you might get it wrong the first time, when you install apex, you may get an error about how pytorch isn't built with the same cuda bindings that are installed. If you look around in the trace, you should be able to find the version number it needs
 
 ## Install mitsuba2
 
