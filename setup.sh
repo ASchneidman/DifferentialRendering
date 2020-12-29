@@ -1,18 +1,17 @@
 #!/bin/sh
 
+# Sets up this project on an aws ec2 instance with the deep learning base ubuntu 18 AMI with conda installed
+
+sudo apt-get install build-essential libcap-dev
+
+export CONDA_ALWAYS_YES="true"
+conda init bash
+
 sudo rm /usr/local/cuda
 sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda
 
-sleep 10m
-
-wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
-chmod +x Anaconda3-2020.11-Linux-x86_64.sh
-/bin/bash Anaconda3-2020.11-Linux-x86_64.sh -b -p $HOME/Anaconda3
-
-/home/ubuntu/anaconda3/bin/conda create -n vilbert-mt python=3.6
-/home/ubuntu/anaconda3/bin/conda activate vilbert-mt
-
-sudo apt-get install build-essential libcap-dev
+conda create -n vilbert-mt python=3.6
+conda activate vilbert-mt
 
 git clone https://github.com/ASchneidman/DifferentialRendering.git
 cd DifferentialRendering
@@ -38,7 +37,8 @@ git clone https://gitlab.com/ASchneidman/vqa-maskrcnn-benchmark.git
 cd vqa-maskrcnn-benchmark
 python setup.py build develop
 
-cd data
+cd ../data
+
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/detectron_model.pth
 wget https://dl.fbaipublicfiles.com/vilbert-multi-task/detectron_config.yaml
 mkdir -p datasets/VQA/cache
