@@ -55,12 +55,13 @@ wget https://dl.fbaipublicfiles.com/vilbert-multi-task/multi_task_model.bin
 ```
 
 
-- Download datasets (you can delete these after getting the file we need: `trainval_label2ans.pkl` and `trainval_ans2label.pkl`, i.e. once the VQA dataset is extracted, you can cancel the untar)
+- Download pkl dictionaries
 
 ```
 cd multi-task-vilbert/data
-wget https://dl.fbaipublicfiles.com/vilbert-multi-task/datasets.tar.gz
-tar xf datasets.tar.gz
+mkdir -p datasets/VQA/cache
+
+aws s3 sync s3://diffrendering .
 ```
 
 - To test the installation, you should be able to run the demo.ipynb in this project's root directory
