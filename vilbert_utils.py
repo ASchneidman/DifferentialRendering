@@ -84,7 +84,12 @@ class FeatureExtractor:
             im_scale = self.MAX_SIZE / im_size_max
 
         # takes size as (h, w)
-        resizer = torchvision.transforms.Resize((int(im_scale * im.shape[0]), int(im_scale * im.shape[1])))
+        resizer = torchvision.transforms.Compose([
+            torchvision.transforms.ToPILImage(),
+            torchvision.transforms.Resize((int(im_scale * im.shape[0]), int(im_scale * im.shape[1]))),
+            torchvision.transforms.ToTensor()
+        ])
+        #resizer = torchvision.transforms.Resize((int(im_scale * im.shape[0]), int(im_scale * im.shape[1])))
         # expects (c, h, w)
         img = resizer(im.permute(2, 0, 1))
         #im = cv2.resize(
