@@ -80,7 +80,7 @@ class FeatureExtractor:
 
         # Prevent the biggest axis from being more than max_size
         # If bigger, scale it down
-        if torch.round(im_scale * im_size_max) > self.MAX_SIZE:
+        if int(im_scale * im_size_max) > self.MAX_SIZE:
             im_scale = self.MAX_SIZE / im_size_max
 
         # takes size as (h, w)
