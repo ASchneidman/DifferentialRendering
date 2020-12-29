@@ -17,7 +17,7 @@ sudo apt-get install build-essential libcap-dev
 
 pip install -r requirements.txt
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-conda install tensorboard notebook
+conda install tensorboard notebook scikit-image
 
 git clone https://github.com/facebookresearch/vilbert-multi-task.git
 
