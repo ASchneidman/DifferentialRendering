@@ -1,5 +1,8 @@
 #!/bin/sh
 
+sudo rm /usr/local/cuda
+sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda
+
 sleep 10m
 
 wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
