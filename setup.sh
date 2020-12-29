@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Sets up this project on an aws ec2 instance with the deep learning base ubuntu 18 AMI with conda installed
+# To run, use source setup.sh
 
 sudo apt-get install build-essential libcap-dev
 
