@@ -20,7 +20,7 @@
 
 ```
 cd vilbert-multi-task
-git clone git@gitlab.com:ASchneidman/vqa-maskrcnn-benchmark.git
+git clone https://gitlab.com/ASchneidman/vqa-maskrcnn-benchmark.git
 cd vqa-maskrcnn-benchmark
 python setup.py build develop
 ```
