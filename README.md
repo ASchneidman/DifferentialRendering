@@ -2,15 +2,14 @@
 
 # Steps
 
-
 ## Install ViLBERT
 
 - `sudo apt-get install build-essential libcap-dev`
 - Follow github to install ViLBERT https://github.com/facebookresearch/vilbert-multi-task
+- `pip install -r requirements.txt`
 - `cd vilbert-multi-task`
 - Set up `tools/refer` (optionally, clone from my fork instead: https://github.com/ASchneidman/refer.git)
     - `cd tools/refer`
-    - `pip install pycocotools`
     - Edit line 39 of `refer.py` from 
     `from external import mask`
     to 
