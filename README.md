@@ -68,14 +68,22 @@ tar xf datasets.tar.gz
 
 - When installing cudatoolkit into your conda env, try 10.1. You might get it wrong the first time, when you install apex, you may get an error about how pytorch isn't built with the same cuda bindings that are installed. If you look around in the trace, you should be able to find the version number it needs
 
-## Install mitsuba2 (read tips and tricks first)
+## Install mitsuba2
 
 1. Make sure you are in the same python env as the one used for installing ViLBERT (probably vilbert-mt)
-2. Follow guide to set up mitsuba2: https://mitsuba2.readthedocs.io/en/latest/src/getting_started/cloning.html
 
-### Tips and Tricks
+```
+git clone --recursive https://github.com/mitsuba-renderer/mitsuba2
+cp mitsuba.conf mitsuba2
 
-- Edit CMakeLists.txt
+sudo apt install -y clang-9 libc++-9-dev libc++abi-9-dev cmake ninja-build
+sudo apt install -y libz-dev libpng-dev libjpeg-dev libxrandr-dev libxinerama-dev libxcursor-dev
+sudo apt install -y python3-dev python3-distutils python3-setuptools
+
+cd mitsuba2
+```
+
+2. Edit CMakeLists.txt
     - Add the following to line 27
 
 ```
@@ -83,6 +91,28 @@ set(PYTHON_LIBRARY /home/$USER/anaconda3/envs/vilbert-mt/lib/libpython3.6m.so)
 set(PYTHON_INCLUDE_DIR /home/$USER/anaconda3/envs/vilbert-mt/include/python3.6m)
 ```
 
+3. 
+
+```
+mkdir build
+cd build
+
+export CC=clang-9
+export CXX=clang++-9
+
+cmake -GNinja ..
+
+ninja
+```
+
+### Tips and Tricks
+
 - Ensure latest nvidia drivers are installed
 - Had to download optix headers manually from https://developer.nvidia.com/designworks/optix/download
-- Look at mitsuba_setup.sh to help out
+    - If you experience an issue where `optix.h` cannot be found when attempting to use mitsuba2, try
+    downloading optix headers directly from nvidia: https://developer.nvidia.com/designworks/optix/download
+    - Then, point cmake at the headers using the following:
+
+```
+cmake -GNinja -DMTS_USE_OPTIX_HEADERS=OFF -DMTS_OPTIX_PATH=[YOUR PATH TO THE OPTIX DOWNLOAD]/NVIDIA-OptiX-SDK-7.2.0-linux64-x86_64/include ..
+```
