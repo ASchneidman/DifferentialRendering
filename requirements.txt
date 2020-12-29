@@ -1,6 +1,5 @@
 pycocotools
 yacs
-pytorch-transformers==1.2.0
 numpy==1.16.4
 lmdb==0.94
 tensorflow==1.15.2
@@ -17,3 +16,4 @@ msgpack
 msgpack-numpy
 opencv-python==4.2.0.34
 tensorboardX
+pytorch-transformers==1.2.0
